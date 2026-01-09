@@ -1,24 +1,28 @@
 label: SEO
 icon: search
 fields:
-  tagline:
+  seo_tagline:
     label: Tagline
     type: text
-    help: >
-      Tagline will be displayed in title tag next to your site name.
-      (e.g. {{ site.title }} - Your Custom Tagline)
+    help: "Tagline will be displayed in title tag next to your site name. (e.g. {{ site.title }} - Your Custom Tagline)"
 
-  meta_description:
+  seo_description:
     label: Meta Description
     type: textarea
     buttons: false
+    maxlength: 160
+    help: "Recommended length: 150-160 characters"
 
-  og_image:
-    label: Open Graph Image
-    type: files
-    multiple: false
-    empty: Generated automatically when no source is provided
-    info: "{{ file.width }} x {{ file.height }}"
-    image:
-      cover: false
-      back: white
+  robots_noindex:
+    label: No Index
+    type: toggle
+    default: false
+    help: "Prevents search engines from indexing this page"
+    width: 1/2
+
+  robots_nofollow:
+    label: No Follow
+    type: toggle
+    default: false
+    help: "Prevents search engines from following links on this page"
+    width: 1/2
