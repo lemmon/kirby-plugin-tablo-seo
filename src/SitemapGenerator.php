@@ -23,9 +23,27 @@ class SitemapGenerator
             $pages[] = site()->url();
         }
 
-        // Iterate over all listed pages
+        $excludeTemplates = option('tablo.seo.sitemapExcludeTemplates', []);
+        $exactExclude = [];
+        $wildcardExclude = [];
+        foreach ($excludeTemplates as $pattern) {
+            if (str_contains($pattern, '*') || str_contains($pattern, '?')) {
+                $wildcardExclude[] = $pattern;
+            } else {
+                $exactExclude[$pattern] = true;
+            }
+        }
+
         foreach (site()->index()->listed() as $page) {
-            // Check if all parents are listed
+            $templateName = $page->intendedTemplate()->name();
+            if (isset($exactExclude[$templateName])) {
+                continue;
+            }
+            foreach ($wildcardExclude as $pattern) {
+                if (fnmatch($pattern, $templateName)) {
+                    continue 2;
+                }
+            }
             foreach ($page->parents() as $parent) {
                 if (!$parent->isListed()) {
                     continue 2;
