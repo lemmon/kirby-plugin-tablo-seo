@@ -10,7 +10,6 @@ fields:
     label: Meta Description
     type: textarea
     buttons: false
-    maxlength: 160
     help: "Recommended length: 150-160 characters"
 
   robots_noindex:
