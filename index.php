@@ -35,6 +35,7 @@ Kirby::plugin('tablo/seo', [
         'robotsDisallow' => '',
         'sitemapActive' => true,
         'sitemapExcludeTemplates' => [],
+        'sitemapIncludeUnlisted' => [],
     ],
     'blueprints' => [
         'tabs/seo' => __DIR__ . '/blueprints/tabs/seo.yml',
