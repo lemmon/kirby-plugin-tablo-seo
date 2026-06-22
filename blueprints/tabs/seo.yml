@@ -1,27 +1,42 @@
 label: SEO
 icon: search
-fields:
-  seo_tagline:
-    label: Tagline
-    type: text
-    help: "Tagline will be displayed in title tag next to your site name. (e.g. {{ site.title }} - Your Custom Tagline)"
 
-  seo_description:
-    label: Meta Description
-    type: textarea
-    buttons: false
-    help: "Recommended length: 150-160 characters"
+columns:
+  - width: 2/3
+    fields:
+      seo_tagline:
+        label: Tagline
+        type: text
+        help: "Tagline will be displayed in title tag next to your site name. (e.g. {{ site.title }} - Your Custom Tagline)"
 
-  robots_noindex:
-    label: No Index
-    type: toggle
-    default: false
-    help: "Prevents search engines from indexing this page"
-    width: 1/2
+      seo_description:
+        label: Meta Description
+        type: textarea
+        buttons: false
+        help: "Recommended length: 150-160 characters"
 
-  robots_nofollow:
-    label: No Follow
-    type: toggle
-    default: false
-    help: "Prevents search engines from following links on this page"
-    width: 1/2
+      robots_noindex:
+        label: No Index
+        type: toggle
+        default: false
+        help: "Prevents search engines from indexing this page"
+        width: 1/2
+
+      robots_nofollow:
+        label: No Follow
+        type: toggle
+        default: false
+        help: "Prevents search engines from following links on this page"
+        width: 1/2
+
+  - width: 1/3
+    fields:
+      seo_og_image:
+        label: Social Card Image
+        type: files
+        query: page.images
+        multiple: false
+        layout: cards
+        image:
+          ratio: 120/63
+        help: "Optional custom image for Open Graph and Twitter cards. Falls back to the generated Tablo card. Recommended size: 1200 x 630 px."

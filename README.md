@@ -4,6 +4,13 @@ Small SEO toolkit for [Tablo Themes](https://tablo.supply/). Provides custom blu
 
 This plugin is intended for Tablo templates and is not meant to replace more advanced Kirby SEO plugins. For comprehensive SEO functionality, consider plugins from the [Kirby SEO plugins collection](https://plugins.getkirby.com/topics/seo).
 
+## Social Card Images
+
+Pages using the `tabs/seo` blueprint can select an optional custom Open Graph and Twitter card image through `seo_og_image`. A 1200 x 630 px raster image is recommended.
+
+- `$page->ogImage()` returns the custom file URL when selected, otherwise it returns a generated Tablo card URL.
+- `$page->ogImageFile()` returns the selected custom file or `null`, for templates that need its dimensions or alt metadata.
+
 ## Install Notes
 
 ```sh

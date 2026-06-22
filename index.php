@@ -42,6 +42,7 @@ Kirby::plugin('tablo/seo', [
     ],
     'pageMethods' => [
         'ogImage' => fn (array $props = []) => PageExtensions::ogImage($this, $props),
+        'ogImageFile' => fn () => PageExtensions::ogImageFile($this),
     ],
     'siteMethods' => [
         'sitemaps' => fn () => SiteExtensions::sitemaps($this),
