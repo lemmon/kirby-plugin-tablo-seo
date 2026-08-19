@@ -14,10 +14,12 @@ class SitemapGenerator
      *
      * Includes every listed page, plus any unlisted pages explicitly opted in
      * through the `tablo.seo.sitemapIncludeUnlisted` option (matched by id /
-     * path, with `*` and `?` wildcards). Pages are skipped when their template
-     * matches `tablo.seo.sitemapExcludeTemplates`, or when any ancestor is
-     * neither listed nor opted in — so an unlisted branch never leaks its
-     * children unless the branch itself is opted in.
+     * path, with `*` and `?` wildcards). A visible page is then dropped when
+     * its template matches `tablo.seo.sitemapExcludeTemplates`, or when it is
+     * no-index (globally via `tablo.seo.forceNoindex`, or per-page via the
+     * `robots_noindex` field). Any ancestor that is neither listed nor opted
+     * in also excludes a page, so an unlisted branch never leaks its children
+     * unless the branch itself is opted in.
      *
      * @return \Kirby\Http\Response The sitemap.txt response
      */
@@ -26,7 +28,8 @@ class SitemapGenerator
         $pages = [];
 
         // Add homepage if not listed
-        if (!site()->homePage()->isListed()) {
+        $homePage = site()->homePage();
+        if (!$homePage->isListed() && !PageExtensions::isNoindex($homePage)) {
             $pages[] = site()->url();
         }
 
@@ -60,6 +63,10 @@ class SitemapGenerator
                 if (fnmatch($pattern, $templateName)) {
                     continue 2;
                 }
+            }
+
+            if (PageExtensions::isNoindex($page)) {
+                continue;
             }
 
             $pages[] = $page->url();

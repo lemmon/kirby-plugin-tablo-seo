@@ -31,6 +31,7 @@ F::loadClasses([
 Kirby::plugin('tablo/seo', [
     'options' => [
         'faviconActive' => true,
+        'forceNoindex' => false,
         'robotsActive' => true,
         'robotsDisallow' => '',
         'sitemapActive' => true,
@@ -43,6 +44,7 @@ Kirby::plugin('tablo/seo', [
     'pageMethods' => [
         'ogImage' => fn (array $props = []) => PageExtensions::ogImage($this, $props),
         'ogImageFile' => fn () => PageExtensions::ogImageFile($this),
+        'metaRobots' => fn () => PageExtensions::metaRobots($this),
     ],
     'siteMethods' => [
         'sitemaps' => fn () => SiteExtensions::sitemaps($this),

@@ -34,4 +34,34 @@ class PageExtensions
     {
         return $page->seo_og_image()->toFile();
     }
+
+    /**
+     * Whether the page is no-index, either globally via
+     * `tablo.seo.forceNoindex` or individually via `robots_noindex`.
+     */
+    public static function isNoindex(Page $page): bool
+    {
+        return option('tablo.seo.forceNoindex', false) || $page->robots_noindex()->toBool();
+    }
+
+    /**
+     * Builds the `<meta name="robots">` content value from `robots_noindex`
+     * / `robots_nofollow`, and `tablo.seo.forceNoindex`. Returns null when no
+     * directive applies, so templates can skip rendering the tag entirely.
+     */
+    public static function metaRobots(Page $page): string|null
+    {
+        $directives = [];
+
+        if (self::isNoindex($page)) {
+            $directives[] = 'noindex';
+            $directives[] = 'noarchive';
+        }
+
+        if ($page->robots_nofollow()->toBool()) {
+            $directives[] = 'nofollow';
+        }
+
+        return $directives === [] ? null : implode(', ', $directives);
+    }
 }
