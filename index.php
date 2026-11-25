@@ -79,4 +79,7 @@ Kirby::plugin('tablo/seo', [
 
         return $routes;
     },
-]);
+], info: [
+    'authors' => [['name' => 'Jakub Pelák']],
+    'homepage' => 'https://github.com/lemmon/kirby-plugin-tablo-seo',
+], license: 'MIT');
